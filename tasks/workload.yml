@@ -19,7 +19,7 @@
     - ./templates/deployment.yaml.j2
 
   - name: Retrieve created pod name
-    k8s_facts:
+    kubernetes.core.k8s_info:
       kind: Pod
       namespace: "{{ aws_instance_retag_namespace }}"
     register: r_aws_retag_pod
