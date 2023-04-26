@@ -6,6 +6,10 @@ metadata:
   namespace: "{{ aws_instance_retag_namespace }}"
 data:
   playbook.yml: |
-    {{ lookup('template', './playbook.yaml.j2') | indent 4 }}
+    {% filter indent(width=4) %}
+    {% include "./playbook.yaml.j2" %}
+    {% endfilter %}"
   retag.yml: |
-    {{ lookup('template', './retag.yaml.j2') | indent 4 }}
+    {% filter indent(width=4) %}
+    {% include "./retag.yaml.j2" %}
+    {% endfilter %}"
