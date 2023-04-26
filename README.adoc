@@ -1,14 +1,27 @@
 = aws_instance_retag
 
-aws_instance_retag role is created to retag the aws instances.
+aws_instance_retag role is created to retag the aws instances. 
+This role creates namespace, service account, role binding, configmap and deployment based on variables provided.
+Role has task which runs ansible playbook inside the deployed pod. 
 
 == Example
 
 [source,textinfo]
 ----
 git clone https://github.com/linuxnerds/aws_instance_retag.git
+
+# Update variables value as per environment
+cat aws_instance_retag/defaults/main.yml
+
 cd aws_instance_retag/tests
-ansible-playbook test.yml -e guid=xxxx 
+
+cat vars.yml <<EOF
+infra_workloads:
+- ../../aws_instance_retag
+EOF
+
+ansible-playbook infra-workload-test.yml
+
 ----
 
 == Authors
