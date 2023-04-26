@@ -1,5 +1,14 @@
-# aws_instance_retag
+= aws_instance_retag
+aws_instance_retag role is created to retag the aws instances.
 
+== Example
+
+[source,textinfo]
+----
+git clone https://github.com/linuxnerds/aws_instance_retag.git
+cd aws_instance_retag/tests
+ansible-playbook test.yml -e guid=xxxx 
+----
 
 == Authors
 * Mitesh Sharma (mitsharm@redhat.com)
