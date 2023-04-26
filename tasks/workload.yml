@@ -1,0 +1,25 @@
+---
+# Implement your Workload deployment tasks here
+- name: Setting up workload for user
+  debug:
+    msg: "Setting up workload for user ocp_username = {{ ocp_username }}"
+
+- environment:
+    KUBECONFIG: "{{ tmp_kubeconfig }}"
+  block:
+  - name: Create secrets and link service account
+    kubernetes.core.k8s:
+      definition: "{{ lookup('template', item ) | from_yaml }}"
+      state: present
+    loop:
+    - ./templates/namespace.yaml.j2
+    - ./templates/service-account.yaml.j2
+    - ./templates/role-binding.yaml.j2
+    - ./templates/configmap.yaml.j2
+    - ./templates/deployment.yaml.j2
+
+# Leave this as the last task in the playbook.
+- name: workload tasks complete
+  debug:
+    msg: "Workload Tasks completed successfully."
+  when: not silent | bool

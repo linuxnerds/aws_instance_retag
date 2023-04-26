@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ aws_instance_retag_configmap_playbooks }}"
+  namespace: "{{ aws_instance_retag_namespace }}"
+data:
+  playbook.yml: |
+    {{ lookup('template', './playbook.yaml.j2') | indent 4 }}
+  retag.yml: |
+    {{ lookup('template', './retag.yaml.j2') | indent 4 }}

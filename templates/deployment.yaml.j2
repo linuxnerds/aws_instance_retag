@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ aws_instance_retag_deployment }}"
+  namespace: "{{ aws_instance_retag_namespace }}"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: aws_instance_retag_pod
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: aws_instance_retag_pod
+    spec:
+      volumes:
+        - name: aws_instance_retag
+          configMap:
+            name: "{{ aws_instance_retag_configmap_playbooks }}"
+      containers:
+        - name: "{{ aws_instance_retag_executor_pod }}"
+          image: 'quay.io/agnosticd/ee-multicloud:latest'
+          command:
+            - /bin/bash
+            - '-c'
+            - |
+              trap : TERM INT; sleep infinity & wait
+          volumeMounts:
+            - name: aws_instance_retag
+              mountPath: /tmp/aws_instance_retag
+      serviceAccount: "{{ aws_instance_retag_service_account }}"

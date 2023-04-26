@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  role_name: aws_instance_retag
+  author: Mitesh Sharma (mitsharm@redhat.com)
+  description: |
+    Ansible playbook to retag aws instances
+  license: GPLv3
+  min_ansible_version: "2.9"
+  platforms: []
+  galaxy_tags:
+  - ansible
+  - aws_retag
+  - retag
+dependencies: []
+  

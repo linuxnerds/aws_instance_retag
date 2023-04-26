@@ -1,4 +1,16 @@
 ---
+become_override: false
+ocp_username: user-redhat.com
+silent: false
+tmp_dir: /tmp/{{ guid }}
+tmp_kubeconfig: "{{ tmp_dir }}/.kube/config"
+
 
 aws_region: us-east-2
 guid: <CHANGEME>
+
+aws_instance_retag_namespace:
+aws_instance_retag_service_account:
+aws_instance_retag_configmap_playbooks:
+aws_instance_retag_deployment:
+aws_instance_retag_executor_pod: 
