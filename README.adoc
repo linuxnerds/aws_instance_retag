@@ -1,1 +1,10 @@
 # aws_instance_retag
+
+
+== Authors
+* Mitesh Sharma (mitsharm@redhat.com)
+* Prakhar Srivastava (psrivast@redhat.com)
+
+== Support
+* Tyrell Reddy (treddy@redhat.com)
+* Ritesh Shah (rshah@redhat.com)
