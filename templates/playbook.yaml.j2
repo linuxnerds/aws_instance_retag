@@ -1,12 +1,13 @@
 {% raw %}
 ---
-
 - hosts: localhost
   gather_facts: false
   connection: local
   tasks:
     - name: Get instance's info
       amazon.aws.ec2_instance_info:
+        aws_access_key_id: "{{ aws_access_key_id }}"
+        aws_secret_access_key: "{{ aws_secret_access_key }}"
         region: "{{ aws_region | default(omit) }}"
         filters:
           "tag:internaldns": "*.{{ guid }}.internal"

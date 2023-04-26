@@ -1,6 +1,5 @@
 {% raw %}
 ---  
-
 - name: Print Group name and group list
   debug:
     msg: "Tag_value: student{{ outer_index + 1 }}, Instance Group List: {{ inst_group_list }}"
@@ -20,6 +19,8 @@
   vars:
     query: '[?(tags.Name == `{{ "rhel" ~ instance }}`)].instance_id'
   amazon.aws.ec2_tag:
+    aws_access_key_id: "{{ aws_access_key_id }}"
+    aws_secret_access_key: "{{ aws_secret_access_key }}"  
     region: "{{ aws_region | default(omit) }}"
     resource: "{{ _aws_instance_retag_filtered_instances | to_json | from_json | json_query(query) | join }}"
     state: present
