@@ -18,6 +18,32 @@
     - ./templates/configmap.yaml.j2
     - ./templates/deployment.yaml.j2
 
+  - name: Retrieve created pod name
+    k8s_facts:
+      kind: Pod
+      namespace: "{{ aws_instance_retag_namespace }}"
+    register: r_aws_retag_pod
+    until:
+      - r_aws_retag_pod.resources[0].status.phase is defined
+      - r_aws_retag_pod.resources[0].status.phase == "Running"
+    retries: 300
+    delay: 30
+
+  - name: set pod name
+    set_fact:
+      _aws_retag_running_pod_name: "{{ r_aws_retag_pod.resources[0].metadata.name }}"
+  
+  - name: Execute playbook inside pod
+    command: >-
+      oc -n {{ aws_instance_retag_namespace }}
+      exec {{ _aws_retag_running_pod_name }}
+      -- 
+      ansible-playbook /tmp/aws_instance_retag/playbook.yml
+      -e guid={{ guid }}
+      -e aws_region={{ aws_region }}
+      -e aws_access_key_id={{ aws_access_key_id }}
+      -e aws_secret_access_key={{ aws_secret_access_key }}
+
 # Leave this as the last task in the playbook.
 - name: workload tasks complete
   debug:
