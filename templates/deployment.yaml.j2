@@ -9,13 +9,13 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: aws_instance_retag_pod
+      app: aws-instance-retag-pod
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: aws_instance_retag_pod
+        app: aws-instance-retag-pod
     spec:
       volumes:
         - name: aws_instance_retag
