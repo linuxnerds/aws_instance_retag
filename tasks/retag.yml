@@ -1,29 +1,29 @@
 ---  
-     
+
 - name: Print Group name and group list
   debug:
-    msg: "Tag_value: student{{outer_index + 1}}, Instance Group List: {{inst_group_list}}"
-     
+    msg: "Tag_value: student{{ outer_index + 1 }}, Instance Group List: {{ inst_group_list }}"
+
 - name: Print group and group list mapping
   vars:
     query: '[?(tags.Name == `{{ "rhel" ~ instance }}`)].instance_id'
   debug:
     msg: >-
       Tag_value: student{{outer_index + 1}},
-      Tag_instance_id: {{ filtered_instances | to_json | from_json | json_query(query) }}
+      Tag_instance_id: {{ _aws_instance_retag_filtered_instances | to_json | from_json | json_query(query) }}
   loop: "{{ inst_group_list }}"
   loop_control:
     loop_var: instance
-     
+
 - name: Ensure tags are present on a resource
   vars:
     query: '[?(tags.Name == `{{ "rhel" ~ instance }}`)].instance_id'
   amazon.aws.ec2_tag:
-    region: us-east-2
-    resource: "{{ filtered_instances | to_json | from_json | json_query(query) | join }}"                                                                                                      
+    region: "{{ aws_region | default(omit) }}"
+    resource: "{{ _aws_instance_retag_filtered_instances | to_json | from_json | json_query(query) | join }}"
     state: present
     tags:
-      student_workshop_groups: "student{{outer_index + 1}}"
+      student_workshop_groups: "student{{ outer_index + 1 }}"
   loop: "{{ inst_group_list }}"
   loop_control:
     loop_var: instance

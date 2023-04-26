@@ -1,0 +1,24 @@
+---
+
+- name: Get instance's info
+  amazon.aws.ec2_instance_info:
+    region: "{{ aws_region | default(omit) }}"
+    filters:
+      "tag:internaldns": "*.{{ guid }}.internal"
+  register: _r_ec2_info
+
+- name: Set list of rhel instances
+  set_fact:
+    _aws_instance_retag_filtered_instances: "{{ _r_ec2_info.instances | rejectattr('tags.Name', 'search', 'bastion') | list }}"
+
+- name: Print list of rhel instances
+  debug:
+    msg: "{{ _aws_instance_retag_filtered_instances | sort(attribute='tags.Name') | to_json | from_json |
+      json_query('[].{id: instance_id, name: tags.Name}') }}"
+
+- name: Include tasks to change tag
+  include_tasks: retag.yml
+  loop: "{{ range(1, _aws_instance_retag_filtered_instances | length + 1, 1) | batch(3)  | list }}"
+  loop_control:
+    index_var: outer_index
+    loop_var: inst_group_list
