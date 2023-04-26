@@ -18,7 +18,7 @@ spec:
         app: aws-instance-retag-pod
     spec:
       volumes:
-        - name: aws_instance_retag
+        - name: aws-instance-retag
           configMap:
             name: "{{ aws_instance_retag_configmap_playbooks }}"
       containers:
@@ -30,6 +30,6 @@ spec:
             - |
               trap : TERM INT; sleep infinity & wait
           volumeMounts:
-            - name: aws_instance_retag
+            - name: aws-instance-retag
               mountPath: /tmp/aws_instance_retag
       serviceAccount: "{{ aws_instance_retag_service_account }}"
