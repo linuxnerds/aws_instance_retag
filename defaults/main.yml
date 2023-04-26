@@ -9,8 +9,8 @@ tmp_kubeconfig: "{{ tmp_dir }}/.kube/config"
 aws_region: us-east-2
 guid: <CHANGEME>
 
-aws_instance_retag_namespace: aws_retag
-aws_instance_retag_service_account: aws_retag_sa
-aws_instance_retag_configmap_playbooks: aws_retag_playbooks
-aws_instance_retag_deployment: aws_retag_deployment
-aws_instance_retag_executor_pod: aws_retag_pod
+aws_instance_retag_namespace: aws-retag
+aws_instance_retag_service_account: aws-retag-sa
+aws_instance_retag_configmap_playbooks: aws-retag-playbooks
+aws_instance_retag_deployment: aws-retag-deployment
+aws_instance_retag_executor_pod: aws-retag-pod
