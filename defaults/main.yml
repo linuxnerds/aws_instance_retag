@@ -6,7 +6,9 @@ tmp_dir: /tmp/{{ guid }}
 tmp_kubeconfig: "{{ tmp_dir }}/.kube/config"
 
 
-aws_region: us-east-2
+aws_region: <CHANGEME>
+aws_access_key_id: <CHANGEME>
+aws_secret_access_key: <CHANGEME>
 guid: <CHANGEME>
 
 aws_instance_retag_namespace: aws-retag

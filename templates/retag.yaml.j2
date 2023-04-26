@@ -25,7 +25,7 @@
     resource: "{{ _aws_instance_retag_filtered_instances | to_json | from_json | json_query(query) | join }}"
     state: present
     tags:
-      student_workshop_groups: "student{{ outer_index + 1 }}"
+      rhel_workshop_group: "{{ guid }}-student{{ outer_index + 1 }}"
   loop: "{{ inst_group_list }}"
   loop_control:
     loop_var: instance
