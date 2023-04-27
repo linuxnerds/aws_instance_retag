@@ -15,7 +15,7 @@
     KUBECONFIG: "{{ tmp_kubeconfig }}"
   block:
   - name: Remove project
-    kubernetes.core.k8s_info:
+    kubernetes.core.k8s:
       kind: Namespace
       name: "{{ aws_instance_retag_namespace }}"
       state: absent
