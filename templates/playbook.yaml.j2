@@ -24,7 +24,7 @@
 
     - name: Include tasks to change tag
       include_tasks: retag.yml
-      loop: "{{ range(1, _aws_instance_retag_filtered_instances | length + 1, 1) | batch(3)  | list }}"
+      loop: "{{ range(1, _aws_instance_retag_filtered_instances | length + 1, 1) | batch(aws_instance_retag_instances_batch)  | list }}"
       loop_control:
         index_var: outer_index
         loop_var: inst_group_list
