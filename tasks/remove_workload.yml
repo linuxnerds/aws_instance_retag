@@ -11,6 +11,14 @@
     dest: "{{ tmp_dir }}"
     remote_src: true
 
+- environment:
+    KUBECONFIG: "{{ tmp_kubeconfig }}"
+  block:
+  - name: Remove project
+    kubernetes.core.k8s_info:
+      kind: Namespace
+      name: "{{ aws_instance_retag_namespace }}"
+      state: absent
 
 - name: Remove temp kube config
   file:
