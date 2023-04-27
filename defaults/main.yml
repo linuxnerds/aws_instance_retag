@@ -17,5 +17,5 @@ aws_instance_retag_configmap_playbooks: aws-retag-playbooks
 aws_instance_retag_deployment: aws-retag-deployment
 aws_instance_retag_executor_pod: aws-retag-pod
 aws_instance_retag_instances_batch: 3
-aws_instance_retag_instances_tag_key: rhel_workshop_groups
+aws_instance_retag_instances_tag_key: ansible_workshop_groups
 aws_instance_retag_instances_tag_value: student

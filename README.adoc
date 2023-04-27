@@ -21,7 +21,7 @@ infra_workloads:
 - ../../aws_instance_retag
 EOF
 
-ansible-playbook infra-workload-test.yml
+ansible-playbook infra-workload-test.yml -e @vars.yml
 
 ----
 

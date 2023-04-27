@@ -24,8 +24,10 @@
     region: "{{ aws_region | default(omit) }}"
     resource: "{{ _aws_instance_retag_filtered_instances | to_json | from_json | json_query(query) | join }}"
     state: present
+{% endraw %}
+
     tags:
-      "{{ aws_instance_retag_instances_tag_key }}": "{{ guid }}-{{ aws_instance_retag_instances_tag_value }}{{ outer_index + 1 }}"
+      "{{ aws_instance_retag_instances_tag_key }}": {%raw%}"{{ guid }}-{{ aws_instance_retag_instances_tag_value }}{{ outer_index + 1 }}"
       rhel_workshop_groups: "{{ guid }}-student{{ outer_index + 1 }}"
   loop: "{{ inst_group_list }}"
   loop_control:

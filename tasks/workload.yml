@@ -43,6 +43,7 @@
       -e aws_region={{ aws_region }}
       -e aws_access_key_id={{ aws_access_key_id }}
       -e aws_secret_access_key={{ aws_secret_access_key }}
+      -e aws_instance_retag_instances_tag_value={{ aws_instance_retag_instances_tag_value }}
 
 # Leave this as the last task in the playbook.
 - name: workload tasks complete
