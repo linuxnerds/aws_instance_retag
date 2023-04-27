@@ -14,3 +14,8 @@ data:
 {% filter indent(width=4) %}
     {% include "./retag.yaml.j2" %}
 {% endfilter %}
+
+  vars.yml: |
+{% filter indent(width=4) %}
+    {% include "./vars.yaml.j2" %}
+{% endfilter %}
